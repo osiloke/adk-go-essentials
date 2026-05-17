@@ -201,9 +201,14 @@ func (m *openaiModel) convertMessages(req *model.LLMRequest) []openai.ChatComple
 		var toolResponses []openai.ChatCompletionMessage
 
 		text := ""
+		reasoningText := ""
 		for _, part := range content.Parts {
 			if part.Text != "" {
-				text += part.Text
+				if part.Thought {
+					reasoningText += part.Text
+				} else {
+					text += part.Text
+				}
 				asstHasContent = true
 			}
 			if part.FunctionCall != nil {
@@ -231,6 +236,7 @@ func (m *openaiModel) convertMessages(req *model.LLMRequest) []openai.ChatComple
 
 		if asstHasContent {
 			asstMsg.Content = text
+			asstMsg.ReasoningContent = reasoningText
 			messages = append(messages, asstMsg)
 		}
 
