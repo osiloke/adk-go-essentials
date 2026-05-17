@@ -109,10 +109,10 @@ func (m *openaiModel) toOpenAIRequest(req *model.LLMRequest) openai.ChatCompleti
 			chatReq.TopP = *req.Config.TopP
 		}
 		if req.Config.MaxOutputTokens > 0 {
-			// Clamp max_tokens to valid range [1, 8192] for DeepSeek API compatibility
+			// Clamp max_tokens to valid range [1, 384000] for DeepSeek V4 API compatibility
 			maxTokens := int(req.Config.MaxOutputTokens)
-			if maxTokens > 8192 {
-				maxTokens = 8192
+			if maxTokens > 384000 {
+				maxTokens = 384000
 			}
 			if maxTokens < 1 {
 				maxTokens = 1

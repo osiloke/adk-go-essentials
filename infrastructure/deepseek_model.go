@@ -14,6 +14,13 @@ import (
 	"google.golang.org/genai"
 )
 
+const (
+	// DeepSeekV4Flash is the high-throughput, cost-effective V4 model.
+	DeepSeekV4Flash = "deepseek-v4-flash"
+	// DeepSeekV4Pro is the flagship V4 model for complex reasoning and agentic tasks.
+	DeepSeekV4Pro = "deepseek-v4-pro"
+)
+
 type deepseekModel struct {
 	client *deepseek.Client
 	name   string
@@ -105,10 +112,10 @@ func (m *deepseekModel) toDeepseekRequest(req *model.LLMRequest) *deepseek.ChatC
 			chatReq.TopP = *req.Config.TopP
 		}
 		if req.Config.MaxOutputTokens > 0 {
-			// DeepSeek API has a max limit of 8192 tokens
+			// DeepSeek V4 API has a max limit of 384,000 tokens
 			maxTokens := int(req.Config.MaxOutputTokens)
-			if maxTokens > 8192 {
-				maxTokens = 8192
+			if maxTokens > 384000 {
+				maxTokens = 384000
 			}
 			chatReq.MaxTokens = maxTokens
 		}
@@ -147,10 +154,10 @@ func (m *deepseekModel) toDeepseekStreamRequest(req *model.LLMRequest) *deepseek
 			chatReq.TopP = *req.Config.TopP
 		}
 		if req.Config.MaxOutputTokens > 0 {
-			// DeepSeek API has a max limit of 8192 tokens
+			// DeepSeek V4 API has a max limit of 384,000 tokens
 			maxTokens := int(req.Config.MaxOutputTokens)
-			if maxTokens > 8192 {
-				maxTokens = 8192
+			if maxTokens > 384000 {
+				maxTokens = 384000
 			}
 			chatReq.MaxTokens = maxTokens
 		}

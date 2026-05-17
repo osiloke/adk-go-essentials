@@ -10,7 +10,6 @@ import (
 
 	"github.com/osiloke/adk-go-essentials/observability"
 
-	"github.com/cohesion-org/deepseek-go"
 	"google.golang.org/adk/model"
 	"google.golang.org/adk/model/gemini"
 	"google.golang.org/genai"
@@ -62,9 +61,9 @@ var STATIC_MODELS = []*ModelInfo{
 
 	// DeepSeek Models (Native via cohesion-org/deepseek-go)
 	{
-		ID:            "deepseek/" + deepseek.DeepSeekChat,
+		ID:            "deepseek/" + DeepSeekV4Flash,
 		Provider:      "deepseek",
-		Label:         "DeepSeek V3 (Chat)",
+		Label:         "DeepSeek V4 Flash",
 		Cost:          "low",
 		Intelligence:  "high",
 		Speed:         "fast",
@@ -72,12 +71,12 @@ var STATIC_MODELS = []*ModelInfo{
 		Priority:      9,
 	},
 	{
-		ID:            "deepseek/" + deepseek.DeepSeekReasoner,
+		ID:            "deepseek/" + DeepSeekV4Pro,
 		Provider:      "deepseek",
-		Label:         "DeepSeek R1 (Reasoner)",
+		Label:         "DeepSeek V4 Pro",
 		Cost:          "medium",
 		Intelligence:  "high+",
-		Speed:         "slow",
+		Speed:         "balanced",
 		SupportsTools: true,
 		Premium:       true,
 		Priority:      10,
@@ -85,9 +84,9 @@ var STATIC_MODELS = []*ModelInfo{
 
 	// DeepSeek Models (OpenAI Compatible via api.deepseek.com)
 	{
-		ID:            "deepseek-openai/" + deepseek.DeepSeekChat,
+		ID:            "deepseek-openai/" + DeepSeekV4Flash,
 		Provider:      "deepseek-openai",
-		Label:         "DeepSeek V3 (Chat) [OpenAI-API]",
+		Label:         "DeepSeek V4 Flash [OpenAI-API]",
 		Cost:          "low",
 		Intelligence:  "high",
 		Speed:         "fast",
@@ -95,12 +94,12 @@ var STATIC_MODELS = []*ModelInfo{
 		Priority:      9,
 	},
 	{
-		ID:            "deepseek-openai/" + deepseek.DeepSeekReasoner,
+		ID:            "deepseek-openai/" + DeepSeekV4Pro,
 		Provider:      "deepseek-openai",
-		Label:         "DeepSeek R1 (Reasoner) [OpenAI-API]",
+		Label:         "DeepSeek V4 Pro [OpenAI-API]",
 		Cost:          "medium",
 		Intelligence:  "high+",
-		Speed:         "slow",
+		Speed:         "balanced",
 		SupportsTools: true,
 		Premium:       true,
 		Priority:      10,
