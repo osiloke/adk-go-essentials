@@ -30,6 +30,14 @@ Logging and artifact management utilities:
 - **ADK Callbacks**: Pre-built callbacks for logging agent lifecycle, LLM requests/responses
 - **Artifact Management**: Save agent outputs as artifacts with automatic MIME type detection
 
+### Artifact Package (`artifact/`)
+
+Filesystem-backed artifact storage and management:
+
+- **FileSystemArtifactService**: Persist artifacts to local directories by session
+- **Save/List/Load/Delete**: Simple filesystem semantics for working with session-scoped artifacts
+- **MIME detection**: Basic type detection for common file extensions such as `.md`, `.json`, `.png`, `.jpg`, and `.txt`
+
 ### MCP Package (`mcp/`)
 
 Complete Model Context Protocol client implementation:
@@ -135,6 +143,50 @@ agent, _ := llmagent.New(llmagent.Config{
         },
     },
 })
+```
+
+### Filesystem Artifact Service
+
+```go
+import (
+    "context"
+    "fmt"
+    "github.com/osiloke/adk-go-essentials/artifact/filesystem"
+    "google.golang.org/adk/artifact"
+    "google.golang.org/genai"
+)
+
+func saveArtifact(ctx context.Context) error {
+    svc := filesystem.NewFileSystemArtifactService("/tmp/artifacts")
+    _, err := svc.Save(ctx, &artifact.SaveRequest{
+        SessionID: "default",
+        FileName:  "output.txt",
+        Part: &genai.Part{
+            InlineData: &genai.Blob{Data: []byte("Hello world")},
+        },
+    })
+    return err
+}
+```
+
+### Session Manager
+
+```go
+import (
+    "context"
+    "fmt"
+    "github.com/osiloke/adk-go-essentials/session_manager/filesystem"
+)
+
+func listSessions(ctx context.Context) error {
+    mgr := filesystem.NewSessionManager("/tmp/sessions")
+    sessions, err := mgr.ListSessions(ctx)
+    if err != nil {
+        return err
+    }
+    fmt.Println("Sessions:", sessions)
+    return nil
+}
 ```
 
 ### Save Artifacts
