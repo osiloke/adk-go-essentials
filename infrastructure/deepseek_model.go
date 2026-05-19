@@ -188,7 +188,7 @@ func (m *deepseekModel) convertTools(tools []*genai.Tool) []deepseek.Tool {
 	for _, t := range tools {
 		if t.FunctionDeclarations != nil {
 			for _, fd := range t.FunctionDeclarations {
-				b, _ := json.Marshal(fd.Parameters)
+				b, _ := json.Marshal(marshalSchema(fd))
 				var params map[string]interface{}
 				json.Unmarshal(b, &params)
 
@@ -220,6 +220,16 @@ func (m *deepseekModel) convertTools(tools []*genai.Tool) []deepseek.Tool {
 		}
 	}
 	return res
+}
+
+// marshalSchema returns the first non-nil schema from fd.Parameters or
+// fd.ParametersJsonSchema, marshalled to JSON. ADK's functiontool only
+// sets ParametersJsonSchema, not Parameters.
+func marshalSchema(fd *genai.FunctionDeclaration) any {
+	if fd.Parameters != nil {
+		return fd.Parameters
+	}
+	return fd.ParametersJsonSchema
 }
 
 func convertToStringSlice(val interface{}) []string {

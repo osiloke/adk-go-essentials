@@ -32,7 +32,7 @@ func NewListSkillsTool(r *Registry) (tool.Tool, error) {
 
 // ActivateSkillArgs defines the arguments for activating a skill.
 type ActivateSkillArgs struct {
-	Name string `json:"name" description:"The name of the skill to activate"`
+	Name string `json:"name" jsonschema:"The name of the skill to activate"`
 }
 
 // NewActivateSkillTool creates a tool to retrieve skill instructions and persist them to state.
@@ -61,7 +61,7 @@ func NewActivateSkillTool(r *Registry) (tool.Tool, error) {
 
 // ListReferencesArgs defines arguments for listing references in a skill.
 type ListReferencesArgs struct {
-	SkillName string `json:"skill_name" description:"The name of the skill to list references for"`
+	SkillName string `json:"skill_name" jsonschema:"The name of the skill to list references for"`
 }
 
 // NewListReferencesTool creates a tool to list reference documents for a skill.
@@ -88,8 +88,8 @@ func NewListReferencesTool(r *Registry) (tool.Tool, error) {
 
 // LoadReferenceArgs defines arguments for loading a reference document.
 type LoadReferenceArgs struct {
-	SkillName string `json:"skill_name" description:"The name of the skill containing the reference"`
-	RefName   string `json:"ref_name" description:"The name of the reference document (e.g., 'tool-schemas.md')"`
+	SkillName string `json:"skill_name" jsonschema:"The name of the skill containing the reference"`
+	RefName   string `json:"ref_name" jsonschema:"The name of the reference document (e.g., 'tool-schemas.md')"`
 }
 
 // NewLoadReferenceTool creates a tool to load a specific reference document from a skill.
@@ -108,9 +108,9 @@ func NewLoadReferenceTool(r *Registry) (tool.Tool, error) {
 
 // RunSkillScriptArgs defines the arguments for running a script within a skill.
 type RunSkillScriptArgs struct {
-	SkillName  string `json:"skill_name" description:"The name of the skill containing the script"`
-	ScriptName string `json:"script_name" description:"The name of the script file to run (e.g., 'process.py')"`
-	Args       string `json:"args" description:"Space-separated arguments for the script"`
+	SkillName  string `json:"skill_name" jsonschema:"The name of the skill containing the script"`
+	ScriptName string `json:"script_name" jsonschema:"The name of the script file to run (e.g., 'process.py')"`
+	Args       string `json:"args" jsonschema:"Space-separated arguments for the script"`
 }
 
 // NewRunSkillScriptTool creates a tool to execute scripts bundled with a skill.

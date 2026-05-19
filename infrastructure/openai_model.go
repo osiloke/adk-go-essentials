@@ -152,7 +152,7 @@ func (m *openaiModel) convertTools(tools []*genai.Tool) []openai.Tool {
 	for _, t := range tools {
 		if t.FunctionDeclarations != nil {
 			for _, fd := range t.FunctionDeclarations {
-				b, _ := json.Marshal(fd.Parameters)
+				b, _ := json.Marshal(marshalSchema(fd))
 				var params map[string]interface{}
 				json.Unmarshal(b, &params)
 

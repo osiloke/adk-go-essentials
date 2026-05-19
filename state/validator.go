@@ -99,8 +99,8 @@ func NewPreCheckAgent(requiredKeys []string) (agent.Agent, error) {
 
 // LoadArtifactArgs defines arguments for loading an artifact into state.
 type LoadArtifactArgs struct {
-	ArtifactName string `json:"artifact_name" description:"The name of the artifact to load (e.g. 'use_case_1.md')"`
-	StateKey     string `json:"state_key" description:"The state key to store the artifact content"`
+	ArtifactName string `json:"artifact_name" jsonschema:"The name of the artifact to load (e.g. 'use_case_1.md')"`
+	StateKey     string `json:"state_key" jsonschema:"The state key to store the artifact content"`
 }
 
 // LoadArtifactToStateTool creates a tool that loads an artifact's content into session state.
